@@ -61,6 +61,7 @@ public class Bishop  extends Piece{
                 }
             }
         }
+        System.out.println("hello");
         return false;
         }
     }
