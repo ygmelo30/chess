@@ -31,7 +31,10 @@ public class King  extends Piece{
         return false;
     }
 //    public boolean inCheck() {
-//        for()
+//        if(prevRow < 7) {
+//
+//        }
+//        return false;
 //    }
     public boolean isRowEmpty() {
         for(int i = 0; i < 3; i++) {
