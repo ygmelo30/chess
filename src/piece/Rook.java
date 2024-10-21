@@ -2,7 +2,8 @@ package piece;
 
 import main.GamePanel;
 
-public class Rook  extends Piece{
+public class Rook extends Piece{
+    boolean canCastle = true;
     public Rook(int color, int col, int row) {
         super(color, col, row);
 
@@ -20,6 +21,7 @@ public class Rook  extends Piece{
 
             if((prevCol == targetCol || prevRow == targetRow)) {
                 if(isValidSquare(targetCol, targetRow) && !isPieceInPath(targetCol, targetRow)) {
+                    canCastle = false;
                     return true;
                 }
             }

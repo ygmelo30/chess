@@ -8,7 +8,7 @@ public class Main {
 
         JFrame window = new JFrame("My Chess");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
+        window.setResizable(true);
 
         // Adding the game panel to the window
         GamePanel gamePanel = new GamePanel();
