@@ -52,8 +52,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void setPieces() {
         // White pieces
         pieces.add(new Pawn(WHITE, 0, 6));
-        pieces.add(new Pawn(WHITE, 1, 6));
-        pieces.add(new Pawn(WHITE, 2, 6));
+        pieces.add(new Pawn(WHITE, 1, 3));
+        pieces.add(new Pawn(WHITE, 2, 3));
         pieces.add(new Pawn(WHITE, 3, 6));
         pieces.add(new Pawn(WHITE, 4, 6));
         pieces.add(new Pawn(WHITE, 5, 6));
@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
         // Black pieces
         pieces.add(new Pawn(BLACK, 0, 1));
         pieces.add(new Pawn(BLACK, 1, 1));
-        pieces.add(new Pawn(BLACK, 2, 1));
+        pieces.add(new Pawn(BLACK, 2, 4));
         pieces.add(new Pawn(BLACK, 3, 1));
         pieces.add(new Pawn(BLACK, 4, 1));
         pieces.add(new Pawn(BLACK, 5, 1));
@@ -206,11 +206,11 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
 
         // Board
-        board.draw(g2);
+            board.draw(g2);
 
         // Pieces
         for (Piece p : simPieces) {
-            p.draw(g2);
+                p.draw(g2);
         }
 
         if(activeP != null) {
@@ -223,8 +223,9 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             // draw the active piece in the end, so it won't be hidden by board or colored square
-            activeP.draw(g2);
+                activeP.draw(g2);
+            }
         }
     }
 
-}
+

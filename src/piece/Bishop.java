@@ -32,7 +32,6 @@ public class Bishop  extends Piece{
             for(int i = 0; i < Math.abs(targetRow - prevRow); i++) {
                 for(Piece piece : GamePanel.simPieces) {
                     if(piece.row == prevRow + i && piece.col == prevCol + i && piece != this) {
-                        System.out.println("first");
                         return true;
                     }
                 }
@@ -41,7 +40,6 @@ public class Bishop  extends Piece{
             for(int i = 0; i < Math.abs(targetRow - prevRow); i++) {
                 for(Piece piece : GamePanel.simPieces) {
                     if(piece.row == prevRow + i && piece.col == prevCol - i && piece != this) {
-                        System.out.println("second");
                         return true;
                     }
                 }
@@ -50,7 +48,6 @@ public class Bishop  extends Piece{
             for(int i = 0; i < Math.abs(targetRow - prevRow); i++) {
                 for(Piece piece : GamePanel.simPieces) {
                     if(piece.row == prevRow - i && piece.col == prevCol - i && piece != this) {
-                        System.out.println("third");
                         return true;
                     }
                 }
@@ -59,7 +56,6 @@ public class Bishop  extends Piece{
             for(int i = 0; i < Math.abs(targetRow - prevRow); i++) {
                 for(Piece piece : GamePanel.simPieces) {
                     if(piece.row == prevRow - i && piece.col == prevCol + i && piece != this) {
-                        System.out.println("fourth");
                         return true;
                     }
                 }

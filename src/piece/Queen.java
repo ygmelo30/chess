@@ -54,7 +54,7 @@ public class Queen  extends Piece{
             } else if(targetCol > prevCol) {
                 for (int i = prevCol; i < targetCol; i++) {
                     for(Piece piece : GamePanel.simPieces) {
-                        if(piece.row == targetCol && piece.col == i && piece != this) {
+                        if(piece.row == targetRow && piece.col == i && piece != this) {
                             return true;
                         }
                     }

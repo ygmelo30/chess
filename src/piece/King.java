@@ -23,30 +23,77 @@ public class King  extends Piece{
                     Math.abs(targetCol - prevCol) * Math.abs(targetRow - prevRow) == 1) {
                 if(isValidSquare(targetCol, targetRow)) {
                     canCastle = false;
-                        isRowEmpty();
+                    inCheck();
                     return true;
                 }
             }
         }
         return false;
     }
-//    public boolean inCheck() {
-//        if(prevRow < 7) {
-//
-//        }
-//        return false;
-//    }
+    public boolean inCheck() {
+        // checking all the squares in to the right of the king
+        for(int i = prevRow + 1; i < 7; i++) {
+            for(Piece piece : GamePanel.simPieces) {
+                if(piece.row == i && piece.col == prevCol) {
+                    if(piece.color != this.color) {
+                        if(piece instanceof Queen || piece instanceof Rook) {
+                            System.out.println("queen or rook are checking.");
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        // checking all the squares to the left of the king
+        for(int i = prevRow - 1; i > 0; i--) {
+            for(Piece piece : GamePanel.simPieces) {
+                if(piece.row == i && piece.col == prevCol) {
+                    if(piece.color != this.color) {
+                        if(piece instanceof Queen || piece instanceof Rook) {
+                            System.out.println("queen or rook are checking.");
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        // checking all the squares above the king
+        for(int i = prevCol + 1; i < 8; i++) {
+            for(Piece piece : GamePanel.simPieces) {
+                if(piece.row == prevRow && piece.col == i) {
+                    if(piece.color != this.color) {
+                        if(piece instanceof Queen || piece instanceof Rook) {
+                            System.out.println("queen or rook are checking.");
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        // checking all the squares behind the king
+        for(int i = prevCol - 1; i > 7; i--) {
+            for(Piece piece : GamePanel.simPieces) {
+                if(piece.row == i && piece.col == prevCol) {
+                    if(piece.color != this.color) {
+                        if(piece instanceof Queen || piece instanceof Rook) {
+                            System.out.println("queen or rook are checking.");
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
     public boolean isRowEmpty() {
         for(int i = 0; i < 3; i++) {
             for(Piece piece : GamePanel.simPieces) {
                 if(piece.row == prevRow && piece.col == prevCol + 1) {
                     if(piece instanceof Rook) {
                         if(((Rook) piece).canCastle) {
-                            System.out.println("rook can castle");
                             return true;
                         }
                     } else {
-                        System.out.println("inner false");
                         return false;
                     }
                 }
@@ -57,17 +104,14 @@ public class King  extends Piece{
                 if(piece.row == prevRow && piece.col == prevCol - 1) {
                     if(piece instanceof Rook) {
                         if(((Rook) piece).canCastle) {
-                            System.out.println("second rook can castle");
                             return true;
                         }
                     } else {
-                        System.out.println("second inner false");
                         return false;
                     }
                 }
             }
         }
-        System.out.println("second outer false");
         return false;
     }
 

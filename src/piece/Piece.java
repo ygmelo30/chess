@@ -113,4 +113,5 @@ public class Piece {
         g2.drawImage(bufferedImage, x, y, Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
     }
 
+
 }
