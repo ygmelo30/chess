@@ -20,6 +20,8 @@ public class GamePanel extends JPanel implements Runnable {
     public static ArrayList<Piece> pieces = new ArrayList<Piece>();
     public static ArrayList<Piece> simPieces = new ArrayList<Piece>();
     Piece activeP;
+    Piece whiteKing = new King(WHITE, 4, 7);
+    Piece blackKing = new King(BLACK, 4, 0);
 
     // COLOR
     public static final int BLACK = 0;
@@ -149,8 +151,36 @@ public class GamePanel extends JPanel implements Runnable {
                         simPieces.remove(activeP.hittingPiece.getIndex());
                     }
                     copyPieces(simPieces, pieces);
+                    if(activeP instanceof King) {
+                        if(activeP.color == WHITE) {
+                            whiteKing.updatePosition();
+                        }
+                        else {
+                            blackKing.updatePosition();
+                        }
+                    }
                     activeP.updatePosition();
                     toggleTurn();
+
+                    // Check if the king of the current player is in check
+                    if (currentColor.get() == WHITE) {
+                        System.out.println("AHHH WHITE!");
+                        System.out.println(whiteKing.col + " and row is " + whiteKing.row);
+                        if(inCheck(whiteKing.col, whiteKing.row)) {
+                            // Handle check situation, e.g., notify player or restrict moves
+                            System.out.println("White King is in check!");
+                        }
+                    }
+                    else {
+                        System.out.println("AHHH  BLACK!");
+                        // Check if the king of the current player is in check
+                        System.out.println(blackKing.col + " and row is " + blackKing.row);
+                        if (inCheck(blackKing.col, blackKing.row)) {
+                            // Handle check situation, e.g., notify player or restrict moves
+                            System.out.println("Black King is in check!");
+                        }
+                    }
+
                     canMove = false;
                     validSquare = false;
 
@@ -194,9 +224,10 @@ public class GamePanel extends JPanel implements Runnable {
         // check if piece is hovering over a reachable and legal square
         if(activeP.canMove(activeP.col, activeP.row)) {
 
-            canMove = true;
-            validSquare = true;
-            }
+                    canMove = true;
+                    validSquare = true;
+                }
+
         }
 
 
@@ -226,6 +257,267 @@ public class GamePanel extends JPanel implements Runnable {
                 activeP.draw(g2);
             }
         }
+    public boolean inCheck(int prevCol, int prevRow) {
+        return isQueenOrRookChecking(prevCol,prevRow) || isBishopOrQueenChecking(prevCol,prevRow) || isPawnChecking(prevCol,prevRow) || isKnightChecking(prevCol,prevRow);
+    }
+    public boolean isBishopOrQueenChecking (int prevCol, int prevRow) {
+        outerLoop:
+        for (int i = 0; i < 8; i++) {
+            for (Piece piece : GamePanel.simPieces) {
+                if (piece.row == prevRow + i && piece.col == prevCol + i) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Queen || piece instanceof Bishop) {
+                            System.out.println("queen or bishop are checking king from bottom right.");
+                            return true;
+                        }
+                        else {
+                            break outerLoop;
+                        }
+                    }
+                    else {
+                        break outerLoop;
+                    }
+                }
+            }
+        }
+        // checking bishop or queen on bottom left diagonal
+        outerLoop:
+        for (int i = 0; i < 8; i++) {
+            for (Piece piece : GamePanel.simPieces) {
+                if (piece.row == prevRow + i && piece.col == prevCol - i) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Queen || piece instanceof Bishop) {
+                            System.out.println("queen or bishop are checking king from bottom left.");
+                            return true;
+                        }
+                        else {
+                            break outerLoop;
+                        }
+                    }
+                    else {
+                        break outerLoop;
+                    }
+                }
+            }
+        }
+        // checking bishop or queen on top left diagonal
+        outerLoop:
+        for (int i = 0; i < 8; i++) {
+            for (Piece piece : GamePanel.simPieces) {
+                if (piece.row == prevRow - i && piece.col == prevCol - i) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Queen || piece instanceof Bishop) {
+                            System.out.println("queen or bishop are checking king from top left.");
+                            return true;
+                        }
+                        else {
+                            break outerLoop;
+                        }
+                    }
+                    else {
+                        break outerLoop;
+                    }
+                }
+            }
+        }
+        // checking bishop or queen on top right diagonal
+        outerLoop:
+        for (int i = 0; i < 8; i++) {
+            for (Piece piece : GamePanel.simPieces) {
+                if (piece.row == prevRow - i && piece.col == prevCol + i) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Queen || piece instanceof Bishop) {
+                            System.out.println("queen or bishop or are checking king from top right.");
+                            return true;
+                        }
+                        else {
+                            break outerLoop;
+                        }
+                    }
+                    else {
+                        break outerLoop;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public boolean isQueenOrRookChecking (int prevCol, int prevRow) {
+        // checking all the squares below the king
+        outerLoop:
+        for (int i = prevRow + 1; i < 8; i++) {
+            for (Piece piece : GamePanel.simPieces) {
+                if (piece.row == i && piece.col == prevCol) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Queen || piece instanceof Rook) {
+                            System.out.println("queen or rook are checking below king.");
+                            return true;
+                        }
+                        else {
+                            break outerLoop;
+                        }
+                    }
+                    else {
+                        break outerLoop;
+                    }
+                }
+            }
+        }
+        // checking all the squares to the left of the king
+        outerLoop:
+        for (int i = prevCol - 1; i >= 0; i--) {
+            for (Piece piece : GamePanel.simPieces) {
+                if (piece.row == prevRow && piece.col == i) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Queen || piece instanceof Rook) {
+                            System.out.println("queen or rook are checking left of king.");
+                            return true;
+                        }
+                        else {
+                            break outerLoop;
+                        }
+                    }
+                    else {
+                        break outerLoop;
+                    }
+                }
+            }
+        }
+        // checking all the squares above the king
+        outerLoop:
+        for (int i = prevRow - 1; i >= 0; i--) {
+            for (Piece piece : GamePanel.simPieces) {
+                if (piece.row == i && piece.col == prevCol) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Queen || piece instanceof Rook) {
+                            System.out.println("queen or rook are checking above king.");
+                            return true;
+                        }
+                        else {
+                            break outerLoop;
+                        }
+                    }
+                    else {
+                        break outerLoop;
+                    }
+                }
+            }
+        }
+        // checking all the squares right of the king
+        outerLoop:
+        for (int i = prevCol + 1; i < 8; i++) {
+            for (Piece piece : GamePanel.simPieces) {
+                if (piece.row == prevRow && piece.col == i) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Queen || piece instanceof Rook) {
+                            System.out.println("queen or rook are checking right king.");
+                            return true;
+                        }
+                        else {
+                            break outerLoop;
+                        }
+                    }
+                    else {
+                        break outerLoop;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public boolean isPawnChecking (int prevCol, int prevRow) {
+        // checking pawn check
+        for (Piece piece : GamePanel.simPieces) {
+            if(currentColor.get() == WHITE) {
+                if (piece.row == prevRow - 1 && piece.col == prevCol + 1) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Pawn) {
+                            System.out.println("pawn checking from top right.");
+                            return true;
+                        }
+                    }
+                } else if (piece.row == prevRow - 1 && piece.col == prevCol - 1) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Pawn) {
+                            System.out.println("pawn checking from top left.");
+                            return true;
+                        }
+                    }
+                }
+            }
+            else {
+                if (piece.row == prevRow + 1 && piece.col == prevCol - 1) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Pawn) {
+                            System.out.println("pawn checking from top right.");
+                            return true;
+                        }
+                    }
+                } else if (piece.row == prevRow + 1 && piece.col == prevCol + 1) {
+                    if (piece.color != currentColor.get()) {
+                        if (piece instanceof Pawn) {
+                            System.out.println("pawn checking from top left.");
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public boolean isKnightChecking (int prevCol, int prevRow) {
+        for (Piece piece : GamePanel.simPieces) {
+            if (piece.row == prevRow - 1 && piece.col == prevCol + 2 && piece.color != currentColor.get()) {
+                if (piece instanceof Knight) {
+                    System.out.println("knight checking from up 1 two right");
+                    return true;
+                }
+            }
+            else if (piece.row == prevRow - 1 && piece.col == prevCol - 2 && piece.color != currentColor.get()) {
+                if (piece instanceof Knight) {
+                    System.out.println("knight checking from up 1 two left");
+                    return true;
+                }
+            }
+            else if (piece.row == prevRow + 1 && piece.col == prevCol + 2 && piece.color != currentColor.get()) {
+                if (piece instanceof Knight) {
+                    System.out.println("knight checking from down 1 right 2");
+                    return true;
+                }
+            }
+            else if (piece.row == prevRow + 1 && piece.col == prevCol - 2 && piece.color != currentColor.get()) {
+                if (piece instanceof Knight) {
+                    System.out.println("knight checking from down 1 left 2");
+                    return true;
+                }
+            }
+            else if (piece.row == prevRow + 2 && piece.col == prevCol + 1 && piece.color !=currentColor.get()) {
+                if (piece instanceof Knight) {
+                    System.out.println("knight checking from down 2 right 1");
+                    return true;
+                }
+            }
+            else if (piece.row == prevRow + 2 && piece.col == prevCol - 1 && piece.color != currentColor.get()) {
+                if (piece instanceof Knight) {
+                    System.out.println("knight checking from up 2 left 1");
+                    return true;
+                }
+            }
+            else if (piece.row == prevRow - 2 && piece.col == prevCol + 1 && piece.color != currentColor.get()) {
+                if (piece instanceof Knight) {
+                    System.out.println("knight checking from down 2 right 1");
+                    return true;
+                }
+            }
+            else if (piece.row == prevRow - 2 && piece.col == prevCol - 1 && piece.color != currentColor.get()) {
+                if (piece instanceof Knight) {
+                    System.out.println("knight checking down 2 left 1");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     }
 
 
