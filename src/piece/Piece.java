@@ -1,6 +1,7 @@
 package piece;
 
 import main.Board;
+import main.CheckHandler;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -15,6 +16,7 @@ public class Piece {
     public int col, row, prevCol, prevRow;
     public int color;
     public Piece hittingPiece;
+    CheckHandler checkHandler = new CheckHandler();
 
     public Piece (int color, int col, int row) {
 
@@ -109,6 +111,78 @@ public class Piece {
 
         return false;
     }
+
+public boolean canLegallyMoveTo(int kingCol, int kingRow, int targetCol, int targetRow)  {
+
+    //checks if a piece can legally move and not cause checkmate. for example a pinned knight cannot move
+    if(isWithinBoard(kingCol, kingRow)) {
+
+        if(Thread.currentThread().getStackTrace()[2].getMethodName().equals("kingCanMove")) {
+            Piece king = checkHandler.getKing(kingCol, kingRow);
+            GamePanel.simPieces.remove(king.getIndex());
+            if (this.color == 1) {
+
+                if(checkHandler.inCheck(targetCol, targetRow, 1)) {
+                    GamePanel.simPieces.add(king);
+                    return true;
+                } else {
+                    GamePanel.simPieces.add(king);
+                    return false;
+                }
+
+            }
+            else {
+                if(checkHandler.inCheck(targetCol, targetRow, 0)) {
+                    GamePanel.simPieces.add(king);
+                    return true;
+                } else {
+                    GamePanel.simPieces.add(king);
+                    return false;
+                }
+            }
+        }
+
+        if (this instanceof King) {
+            if (this.color == 1) {
+
+                kingCol = targetCol;
+                kingRow = targetRow;
+                return checkHandler.inCheck(kingCol, kingRow, 1);
+
+            } else {
+                kingCol = targetCol;
+                kingRow = targetRow;
+                return checkHandler.inCheck(kingCol, kingRow, 0);
+            }
+
+        }
+
+        for (Piece piece : GamePanel.pieces) {
+            if (piece.row == targetRow && piece.col == targetCol && piece.color != this.color) {
+
+                GamePanel.simPieces.remove(piece.getIndex());
+
+                boolean inCheck = checkHandler.inCheck(kingCol, kingRow, this.color);
+
+                GamePanel.simPieces.add(piece);
+
+                return inCheck;
+            }
+        }
+
+            return checkHandler.inCheck(kingCol, kingRow, this.color);
+
+    }
+    else {
+        return false;
+    }
+
+}
+    public String toString() {
+        return "Piece is of type: " + this.getClass() + " with col and row being: " + this.col + " " + this.row;
+    }
+
+
     public void draw(Graphics2D g2) {
         g2.drawImage(bufferedImage, x, y, Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
     }

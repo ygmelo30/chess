@@ -3,7 +3,7 @@ package piece;
 import main.GamePanel;
 
 public class Rook extends Piece{
-    boolean canCastle = true;
+    public boolean canCastle = true;
     public Rook(int color, int col, int row) {
         super(color, col, row);
 
@@ -21,8 +21,8 @@ public class Rook extends Piece{
 
             if((prevCol == targetCol || prevRow == targetRow)) {
                 if(isValidSquare(targetCol, targetRow) && !isPieceInPath(targetCol, targetRow)) {
-                    canCastle = false;
-                    return true;
+
+                    return isValidSquare(targetCol, targetRow) && !isPieceInPath(targetCol, targetRow);
                 }
             }
         }
@@ -49,7 +49,7 @@ public class Rook extends Piece{
         } else if(targetCol > prevCol) {
             for (int i = prevCol; i < targetCol; i++) {
                 for(Piece piece : GamePanel.simPieces) {
-                    if(piece.row == targetCol && piece.col == i && piece != this) {
+                    if(piece.row == targetRow && piece.col == i && piece != this) {
                         return true;
                     }
                 }
@@ -65,4 +65,5 @@ public class Rook extends Piece{
         }
         return false;
     }
+
 }

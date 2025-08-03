@@ -1,8 +1,10 @@
 package piece;
 
+import main.CheckHandler;
 import main.GamePanel;
 
 public class Bishop  extends Piece{
+    CheckHandler checkHandler = new CheckHandler();
     public Bishop(int color, int col, int row) {
         super(color, col, row);
 
@@ -63,5 +65,6 @@ public class Bishop  extends Piece{
         }
         return false;
         }
+
     }
 

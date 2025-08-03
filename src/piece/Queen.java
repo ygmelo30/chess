@@ -1,10 +1,11 @@
 package piece;
 
+import main.CheckHandler;
 import main.GamePanel;
 
-import java.io.Serial;
 
 public class Queen  extends Piece{
+    CheckHandler checkHandler = new CheckHandler();
     public Queen(int color, int col, int row) {
         super(color, col, row);
 
@@ -78,7 +79,7 @@ public class Queen  extends Piece{
                         }
                     }
                 }
-            } else if (targetRow > prevRow && targetCol < prevCol) {
+            } else if (targetRow > prevRow) {
                 for (int i = 0; i < Math.abs(targetRow - prevRow); i++) {
                     for (Piece piece : GamePanel.simPieces) {
                         if (piece.row == prevRow + i && piece.col == prevCol - i && piece != this) {
@@ -86,7 +87,7 @@ public class Queen  extends Piece{
                         }
                     }
                 }
-            } else if (targetRow < prevRow && targetCol < prevCol) {
+            } else if (targetCol < prevCol) {
                 for (int i = 0; i < Math.abs(targetRow - prevRow); i++) {
                     for (Piece piece : GamePanel.simPieces) {
                         if (piece.row == prevRow - i && piece.col == prevCol - i && piece != this) {
@@ -94,7 +95,7 @@ public class Queen  extends Piece{
                         }
                     }
                 }
-            } else if (targetRow < prevRow && targetCol > prevCol) {
+            } else {
                 for (int i = 0; i < Math.abs(targetRow - prevRow); i++) {
                     for (Piece piece : GamePanel.simPieces) {
                         if (piece.row == prevRow - i && piece.col == prevCol + i && piece != this) {
@@ -106,4 +107,23 @@ public class Queen  extends Piece{
         }
         return false;
     }
+//    @Override
+//    public boolean canLegallyMoveTo(int kingCol, int kingRow, int targetCol, int targetRow) {
+//        for (Piece piece : GamePanel.pieces) {
+//            if (piece.row == targetRow && piece.col == targetCol && piece.color != this.color) {
+//                if(this.color == 1) {
+//                    return checkHandler.inCheck(kingCol, kingRow, 1);
+//                } else {
+//                    return checkHandler.inCheck(kingCol, kingRow, 0);
+//                }
+//
+//            }
+//        }
+//
+//        if(this.color == 1) {
+//            return checkHandler.inCheck(kingCol, kingRow, 1);
+//        } else {
+//            return checkHandler.inCheck(kingCol, kingRow, 0);
+//        }
+//    }
 }
