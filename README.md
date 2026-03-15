@@ -122,6 +122,9 @@ This allows the engine to detect when a pawn has moved two squares and is vulner
 ### Pawn Promotion
 When a pawn reaches the final rank, it can be promoted to another piece.
 
+### Stalemate
+Stalemate occurs when a player has no legal moves and are currently not in check. And the 50 move rule is implemented, if no pieces have been captured in 50 moves the game ends due to a stalemate.
+
 ---
 
 ## Technologies Used
