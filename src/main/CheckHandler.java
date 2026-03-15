@@ -89,8 +89,6 @@ public class CheckHandler {
     }
 
     public boolean checkMate (int kingCol, int kingRow, int color) {
-        //Piece king = getKing(kingCol, kingRow);
-
         if(kingCanMove(kingCol, kingRow, kingCol, kingRow)) {
             checkingPath.clear();
             return false;

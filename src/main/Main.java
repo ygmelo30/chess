@@ -14,7 +14,6 @@ public class Main {
         window.setResizable(false);
 
 
-
         // Adding the game panel to the window
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
@@ -23,8 +22,6 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         gamePanel.launchGame();
-
-
     }
 
 }

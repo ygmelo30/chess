@@ -19,7 +19,6 @@ public class EndGameHandler {
                     " Would you like to play again?");
         }
     }
-
     public int handleResponse () {
         if (playAgain == 0) {
             return 0;

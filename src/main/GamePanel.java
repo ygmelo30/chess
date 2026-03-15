@@ -55,7 +55,6 @@ public class GamePanel extends JPanel implements Runnable {
     int previousCol;
     int movesSinceLastPieceTaken = 0;
 
-
     public GamePanel () throws UnsupportedAudioFileException, LineUnavailableException, IOException, URISyntaxException {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.black);
@@ -76,7 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
         pieces.add(new Pawn(WHITE, 1, 6));
         pieces.add(new Pawn(WHITE, 2, 6));
         pieces.add(new Pawn(WHITE, 3, 6));
-       pieces.add(new Pawn(WHITE, 4, 6));
+        pieces.add(new Pawn(WHITE, 4, 6));
         pieces.add(new Pawn(WHITE, 5, 6));
         pieces.add(new Pawn(WHITE, 6, 6));
         pieces.add(new Pawn(WHITE, 7, 6));
@@ -224,9 +223,6 @@ public class GamePanel extends JPanel implements Runnable {
                         canMove = false;
                         validSquare = false;
                         canLegallyMove = false;
-
-
-
                     } else {
                         activeP.resetPosition();
                         activeP = null;
@@ -365,7 +361,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         }
 
-
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
 
@@ -410,7 +405,6 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
-
         }
         private void promoting(Piece activeP) {
             if(mouse.pressed.get()) {
@@ -446,7 +440,6 @@ public class GamePanel extends JPanel implements Runnable {
                     castleHandler.updateWhiteLeftRookPosition(currentColor);
                 }
             }
-
             else {
                 blackKing.col = targetCol;
                 blackKing.row = targetRow;
@@ -498,11 +491,6 @@ public class GamePanel extends JPanel implements Runnable {
             System.exit(0);
         }
     }
-
-
-
-
-
 }
 
 

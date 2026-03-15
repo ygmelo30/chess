@@ -8,7 +8,6 @@ public class Pawn extends Piece{
     public boolean enpassant = false;
     public boolean movedTwoSquaresFirstTurn = false;
 
-
     public Pawn(int color, int col, int row) {
         super(color, col, row);
 
@@ -123,7 +122,6 @@ public class Pawn extends Piece{
         return false;
     }
     public boolean enPassantWhite () {
-
              for(Piece piece : GamePanel.simPieces) {
                  if(piece.col == prevCol - 1 || piece.col == prevCol + 1) {
                      if(piece.row == prevRow && piece instanceof Pawn) {
@@ -137,7 +135,6 @@ public class Pawn extends Piece{
          return false;
     }
     public boolean enPassantBlack () {
-
         for(Piece piece : GamePanel.simPieces) {
             if(piece.col == prevCol - 1 || piece.col == prevCol + 1) {
                 if(piece.row == prevRow && piece instanceof Pawn) {
@@ -150,7 +147,5 @@ public class Pawn extends Piece{
         }
         return false;
     }
-
-
 }
 
