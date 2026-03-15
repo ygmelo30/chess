@@ -140,8 +140,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     private void update () throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-
-
+        
         if(promotion) {
             promoting(lastPieceMoved);
             checkForCheck();
