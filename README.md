@@ -1,9 +1,9 @@
 # Java Chess Game 
 
-A fully functional chess game written in **Java** with a custom move validation engine and graphical interface.  
+A fully functional chess game written in Java with a custom move validation engine and graphical interface.  
 The project implements the complete rules of chess without relying on external game engines or libraries.
 
-The goal of this project was to explore **game logic, object-oriented design, and algorithmic problem solving** by implementing chess rules from scratch.
+The goal of this project was to explore game logic, object-oriented design, and algorithmic problem solving by implementing chess rules from scratch.
 
 ---
 
@@ -43,7 +43,7 @@ The goal of this project was to explore **game logic, object-oriented design, an
 
 ## Architecture
 
-The project follows an **object-oriented design** where each chess piece contains its own movement logic.
+The project follows an object-oriented design where each chess piece contains its own movement logic and inherit from a base Piece class.
 
 ### Core Components
 
@@ -69,7 +69,7 @@ Each piece is implemented as its own class:
 Each class contains logic that determines whether a move is valid for that piece.
 
 Example:
-- The **Queen** combines the movement logic of both the rook and bishop.
+- The Queen combines the movement logic of both the rook and bishop.
 
 #### Board Representation
 
@@ -84,9 +84,8 @@ Movement validation checks paths between squares to prevent pieces from passing 
 
 ## Check Detection
 
-When a king is in check, the engine determines the direction of the attacking piece and evaluates the path between the attacker and the king.
+When a king is in check, the engine determines the direction of the attacking piece and determines the path between the attacker and the king.
 
-Special cases such as knight and pawn checks are handled separately since their attacks cannot be blocked.
 
 ---
 
@@ -127,6 +126,6 @@ When a pawn reaches the final rank, it can be promoted to another piece.
 
 ## Technologies Used
 
-- **Java**
-- **Java Swing / AWT** for rendering and UI
+- Java
+- Java Swing / AWT for rendering and UI
 - Object-Oriented Programming principles
