@@ -15,6 +15,14 @@ The goal of this project was to explore game logic, object-oriented design, and 
 ### Catalan position:
 ![Chess game](docs/images/catalan_position.png)
 
+## Run for Windows
+
+.\run.bat
+
+### Run (Mac/Linux)
+
+./run.sh
+
 ## Features
 
 ### Full Chess Rules Implemented
