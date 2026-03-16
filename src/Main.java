@@ -1,4 +1,4 @@
-package main;
+import main.GamePanel;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
